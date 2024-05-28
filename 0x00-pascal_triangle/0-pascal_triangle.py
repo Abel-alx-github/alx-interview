@@ -1,9 +1,10 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 ''' contain function defination '''
 
 
-def pascal_triangle(n):
+def pascal_triangle(n: int):
+    """ function returns pascal triangle"""
     if n <= 0:
         return []
     all_lists = [[1]]
