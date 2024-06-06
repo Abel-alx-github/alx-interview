@@ -18,10 +18,11 @@
 
 def canUnlockAll(boxes):
     """return boolean if boxes are unlocked or not """
-    if not isinstance(boxes, list):
+    if not all(isinstance(item, list) for item in boxes):
         return False
-    if len(boxes) <= 1:
-        return True
+    if not all(isinstance(item, int) for box in boxes for item in box):
+        return False
+
     seen_boxes = set([0])
     queue = [0]
 
