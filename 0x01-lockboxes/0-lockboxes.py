@@ -18,6 +18,10 @@
 
 def canUnlockAll(boxes):
     """return boolean if boxes are unlocked or not """
+    if not isinstance(boxes, list):
+        return False
+    if len(boxes) <= 1:
+        return True
     keys = boxes[0]
     unlocked_boxes = list(range(1, len(boxes)))
 
