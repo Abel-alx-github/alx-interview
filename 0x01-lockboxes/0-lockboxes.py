@@ -23,14 +23,18 @@ def canUnlockAll(boxes):
     if not all(isinstance(item, int) for box in boxes for item in box):
         return False
 
-    seen_boxes = set([0])
-    queue = [0]
+    unseen_boxes = list(range(1, len(boxes)))
+    queue = boxes[0]
 
-    while (queue):
-        for key in boxes[queue.pop(0)]:
-            if key not in seen_boxes:
-                seen_boxes.add(key)
-                queue.append(key)
-                if len(seen_boxes) == len(boxes):
-                    return True
+    for key in queue:
+        if key in unseen_boxes:
+            queue.extend(boxes[key])
+            unseen_boxes.remove(key)
+            if len(unseen_boxes) == 0:
+                return True
+        else:
+            queue.remove(key)
+
+    if len(unseen_boxes) == 0:
+        return True
     return False
