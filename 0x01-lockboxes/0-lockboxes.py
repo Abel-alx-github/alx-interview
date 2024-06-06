@@ -18,8 +18,6 @@
 
 def canUnlockAll(boxes):
     """return boolean if boxes are unlocked or not """
-    if not isinstance(boxes, list):
-        return
     if len(boxes) == 1:
         return True
     keys = boxes[0]
@@ -34,5 +32,4 @@ def canUnlockAll(boxes):
 
     if len(unlocked_boxes) == 0:
         return True
-    else:
-        return False
+    return False
