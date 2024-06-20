@@ -10,8 +10,8 @@ if __name__ == '__main__':
     file_size = 0
     count = 0
 
-    def print_metric(dic, file_size):
-        print("File size:", file_size)
+    def print_metric(dic: dict, file_size: int) -> None:
+        print("File size: {:d}".format(file_size))
         for k in list_status:
             if k in dic.keys():
                 print("{}: {}".format(k, dic[k]))
