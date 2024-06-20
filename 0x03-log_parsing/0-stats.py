@@ -41,6 +41,5 @@ if __name__ == '__main__':
             if count % 10 == 0:
                 print_metric(dic, file_size)
     except KeyboardInterrupt:
-        raise
-    finally:
         print_metric(dic, file_size)
+        raise
