@@ -1,37 +1,21 @@
 #!/usr/bin/python3
-""" utf-8 validation """
+""" validata utf-8"""
 
 
 def validUTF8(data):
-    """
-    data: List[int]
-    return type: bool
-    """
     ones = 0
     for num in data:
-        num = num & 0xFF
-        if num & 0x80:
-            if ones == 0:
-                return False
-            ones += 1
-            if num & 0xC0 == 0xC0:
-                if len(data) < 2:
-                    return False
+        if ones == 0:
+            if num >> 5 == 0b110:
+                ones = 1
+            elif num >> 4 == 0b1110:
                 ones = 2
-            elif num & 0xE0 == 0xE0:
-                if len(data) < 3:
-                    return False
+            elif num >> 3 == 0b11110:
                 ones = 3
-            elif num & 0xF0 == 0xF0:
-                if len(data) < 4:
-                    return False
-                ones = 4
-            else:
+            elif num >> 7:
                 return False
-        elif ones > 0:
-            if not (num & 0x80 and not (num & 0x40)):
+        else:
+            if num >> 6 != 0b10:
                 return False
             ones -= 1
-        else:
-            ones = 0
     return ones == 0
