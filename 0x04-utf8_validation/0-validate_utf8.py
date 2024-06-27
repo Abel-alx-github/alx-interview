@@ -14,10 +14,16 @@ def validUTF8(data):
             if ones == 0:
                 ones += 1
                 if num & 0xC0 == 0xC0:
+                    if len(data) < 2:
+                        return False
                     ones = 2
                 elif num & 0xE0 == 0xE0:
+                    if len(data) < 3:
+                        return False
                     ones = 3
                 elif num & 0xF0 == 0xF0:
+                    if len(data) < 4:
+                        return False
                     ones = 4
                 else:
                     return False
