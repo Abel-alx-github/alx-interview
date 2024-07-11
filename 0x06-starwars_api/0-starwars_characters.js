@@ -4,7 +4,6 @@ const request = require('request');
 
 const id = isNaN(parseFloat(process.argv[2])) ? null : parseInt(process.argv[2]);
 
-
 const url = 'https://swapi-api.alx-tools.com/api/films/' + id;
 function fetchData (url) {
   if (process.argv.length > 2) {
