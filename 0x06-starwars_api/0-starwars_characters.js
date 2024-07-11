@@ -3,33 +3,33 @@
 const request = require('request');
 
 const id = isNaN(parseFloat(process.argv[2])) ? null : parseInt(process.argv[2]);
-if (!id) {
-  console.log('Enter the correct number');
-}
+// if (!id) {
+//   console.log('Enter the correct number');
+// }
 
 const url = 'https://swapi-api.alx-tools.com/api/films/' + id;
-try {
-  request(url, async (err, res, body) => {
-    if (err) {
-      console.log('Error occured: ', err);
-      return;
-    }
-    const links = await JSON.parse(body).characters;
-    try {
-      Promise.all(links.map(link => {
-        return request(link, async (er, re, body) => {
-          if (er) {
-            console.log('error occured while handling link', er);
-            return;
-          }
-          const characterName = await JSON.parse(body).name;
-          console.log(characterName);
-        });
-      }));
-    } catch (er) {
-      console.log('error catched inside');
-    }
-  });
-} catch (error) {
-  console.log('error catched');
+function fetchData (url) {
+  if (process.argv.length > 2) {
+    request(url, (err, _, body) => {
+      if (err) {
+        console.log(err);
+      }
+      const charactersURL = JSON.parse(body).characters;
+      const charactersName = charactersURL.map(
+        url => new Promise((resolve, reject) => {
+          request(url, (promiseErr, __, charactersReqBody) => {
+            if (promiseErr) {
+              reject(promiseErr);
+            }
+            resolve(JSON.parse(charactersReqBody).name);
+          });
+        }));
+
+      Promise.all(charactersName)
+        .then(names => console.log(names.join('\n')))
+        .catch(allErr => console.log(allErr));
+    });
+  }
 }
+
+!id ? console.log('Usage: node 0-starwars_characters.js <id:number>') : fetchData(url);
