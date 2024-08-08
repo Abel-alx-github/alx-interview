@@ -33,10 +33,10 @@ def isWinner(x, nums):
             isMariaTurns = not isMariaTurns
 
     if mariWinsSum > beniWinsSum:
-        return "Winner: Maria"
+        return "Maria"
 
     if mariWinsSum < beniWinsSum:
-        return "Winner: Ben"
+        return "Ben"
 
     return None
 
